@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+from copy import copy
 
 import numpy as np
 
@@ -24,6 +24,20 @@ def qr_decomposition(matrix):
 
     return Q, R
 
+
+def qr_method(matrix: np.ndarray,
+                 num_iterations: int = 1000,
+                 epsilon: float = 1e-8) -> np.ndarray:
+    A_k = copy(matrix).astype(float)
+    for i in range(num_iterations):
+        Q, R = qr_decomposition(A_k)
+        A_k = R @ Q
+
+        convergence = np.sum(np.abs(A_k - np.diag(np.diagonal(A_k))))
+        if convergence < epsilon:
+            break
+
+    return np.diagonal(A_k)
 
 
 def power_iteration_method(matrix: np.ndarray,
