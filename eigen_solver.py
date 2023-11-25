@@ -2,6 +2,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+import numpy as np
+
+def qr_decomposition(matrix):
+
+    n = matrix.shape[0]
+
+    Q = np.zeros((n, n), dtype=float)
+    R = np.zeros((n, n), dtype=float)
+
+    for i in range(n):
+
+        v = matrix[:, i].astype(float)
+
+        for j in range(i):
+            R[j, i] = np.dot(Q[:, j], matrix[:, i])
+            v -= R[j, i] * Q[:, j]
+
+        R[i, i] = np.linalg.norm(v)
+        Q[:, i] = v / R[i, i]
+
+    return Q, R
+
+
+
 def power_iteration_method(matrix: np.ndarray,
                            plot: bool = False,
                            num_iterations: int = 1000,
