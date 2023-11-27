@@ -2,19 +2,30 @@ import numpy as np
 
 
 def is_eigen_vector(matrix: np.ndarray,
-                    vector: np.ndarray,
+                    v: np.ndarray,
                     epsilon: float = 1e-8) -> bool:
-
     if matrix.shape[0] != matrix.shape[1]:
         raise ValueError("Матрица должна быть квадратной")
 
-    if matrix.shape[0] != len(vector):
+    if matrix.shape[0] != len(v):
         raise ValueError("Размерность матрицы и вектора должны совпадать")
 
-    if np.allclose(vector, np.zeros_like(vector)):
+    if np.allclose(v, np.zeros_like(v)):
         raise ValueError("Вектор не может быть нулевым")
 
-    result = matrix.astype(float) @ vector.astype(float)
-    eigen_value = np.linalg.norm(matrix.astype(float) @ vector.astype(float)) / np.linalg.norm(vector.astype(float))
+    eigen_value = (np.linalg.norm(v.T.astype(float) @ matrix.astype(float) @ v.astype(float)) /
+                   (v.T.astype(float) @ v.astype(float)))
 
-    return np.linalg.norm(result - eigen_value * vector.astype(float)) < epsilon
+    return is_eigen_value(matrix, eigen_value)
+
+
+def is_eigen_value(matrix: np.ndarray,
+                   value: float,
+                   epsilon: float = 1e-8) -> bool:
+    if matrix.shape[0] != matrix.shape[1]:
+        raise ValueError("Матрица должна быть квадратной")
+
+    I = np.eye()
+    det = np.linalg.det(matrix - value * I)
+
+    return np.isclose(det, 0, epsilon)
