@@ -2,10 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from copy import copy
 
-import numpy as np
 
-def qr_decomposition(matrix):
+def qr_decomposition(matrix: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """
+    QR-разложение матрицы.
 
+    Аргументы:
+    matrix: np.ndarray - входная матрица
+
+    Возвращает:
+    tuple[np.ndarray, np.ndarray]: Q и R матрицы из QR-разложения
+    """
     n = matrix.shape[0]
 
     Q = np.zeros((n, n), dtype=float)
@@ -26,8 +33,20 @@ def qr_decomposition(matrix):
 
 
 def qr_method(matrix: np.ndarray,
-                 num_iterations: int = 1000,
-                 epsilon: float = 1e-8) -> np.ndarray:
+              num_iterations: int = 1000,
+              epsilon: float = 1e-8) -> np.ndarray:
+    """
+    Метод QR-итераций для поиска собственных значений матрицы.
+
+    Аргументы:
+    matrix: np.ndarray - входная матрица
+    num_iterations: int - максимальное количество итераций (по умолчанию 1000)
+    epsilon: float - порог сходимости (по умолчанию 1e-8)
+
+    Возвращает:
+    np.ndarray: собственные значения матрицы
+    """
+
     A_k = copy(matrix).astype(float)
     for i in range(num_iterations):
         Q, R = qr_decomposition(A_k)
@@ -44,6 +63,19 @@ def power_iteration_method(matrix: np.ndarray,
                            plot: bool = False,
                            num_iterations: int = 1000,
                            epsilon: float = 1e-8) -> tuple[float, np.ndarray]:
+    """
+    Метод итераций для поиска наибольшего по модулю собственного значения и соответствующего собственного вектора.
+
+    Аргументы:
+    matrix: np.ndarray - входная матрица
+    plot: bool - флаг для построения графика сходимости (по умолчанию False)
+    num_iterations: int - максимальное количество итераций (по умолчанию 1000)
+    epsilon: float - порог сходимости (по умолчанию 1e-8)
+
+    Возвращает:
+    tuple[float, np.ndarray]: наибольшее по модулю собственное значение и соответствующий собственный вектор
+    """
+
     if matrix.shape[0] != matrix.shape[1]:
         raise ValueError("Incorrect shape of matrix")
 
@@ -83,11 +115,23 @@ def power_iteration_method(matrix: np.ndarray,
 def jacobi_rotations_method(matrix: np.ndarray,
                             num_iterations: int = 1000,
                             epsilon: float = 1e-8) -> tuple[np.ndarray, np.ndarray]:
+    """
+    Метод вращений Якоби для поиска всех собственных значений и собственных векторов матрицы.
+
+    Аргументы:
+    matrix: np.ndarray - входная матрица
+    num_iterations: int - максимальное количество итераций (по умолчанию 1000)
+    epsilon: float - порог сходимости (по умолчанию 1e-8)
+
+    Возвращает:
+    tuple[np.ndarray, np.ndarray]: собственные значения и матрица вращений Якоби
+    """
+
     n = len(matrix)
 
     for i in range(n):
         for j in range(n):
-            if matrix[i][j] != matrix.T[i][j]:
+            if not np.isclose(matrix[i][j], matrix[j][i]):
                 raise ValueError("Matrix is not symmetric")
 
     cumulative_rot = np.identity(n)
@@ -114,7 +158,7 @@ def jacobi_rotations_method(matrix: np.ndarray,
             if a_ii != a_jj:
                 theta = 0.5 * np.arctan(2 * a_ij / (a_ii - a_jj))
             else:
-                theta = np.pi/4
+                theta = np.pi / 4
 
         c = np.cos(theta)
         s = np.sin(theta)
