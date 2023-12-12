@@ -2,6 +2,14 @@
 
 Этот проект предоставляет реализации нескольких методов для нахождения собственных чисел матрицы. Он разработан для работы с вещественными матрицами, содержащими только вещественные числа.
 
+## Установка
+
+```bash
+git clone https://github.com/s0lovevis/PyEigenSolver.git
+cd PyEigenSolver
+pip install -r requirements.txt
+```
+
 ## Методы
 
 ### 1. Метод степенной итерации
@@ -29,7 +37,6 @@ matrix = np.array(...)
 
 # Нахождение наибольшего по модулю собственного значения и вектора с опцией графика
 eigenvalue, eigenvector = power_iteration_method(matrix, plot=True)
-
 ```
 <img src="convergence_plot.png" width="500">
 
@@ -44,7 +51,6 @@ matrix = np.array(...)
 
 # Нахождение всех собственных чисел матрицы
 eigenvalues =  qr_method(matrix)
-
 ```
 
 ### 3. Метод вращений Якоби
@@ -59,5 +65,4 @@ matrix = np.array(...)
 
 # Нахождение всех собственных чисел и векторов матрицы. Вектора есть столбцы в eigenvectors
 eigenvalues, eigenvectors =  jacobi_rotations_method(matrix)
-
 ```
