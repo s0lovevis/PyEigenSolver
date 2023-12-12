@@ -15,3 +15,49 @@
 ### 3. QR метод
 
 Работает с любыми матрицами и основан на итеративном перемножении элементов QR-разложения согласно определенной формуле. Возвращает массив всех собственных значений матрицы.
+
+## Примеры использования
+
+### 1. Метод степенной итерации
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from eigen_solver import power_iteration_method
+
+matrix = np.array(...)
+
+# Нахождение наибольшего по модулю собственного значения и вектора с опцией графика
+eigenvalue, eigenvector = power_iteration_method(matrix, plot=True)
+
+```
+<img src="convergence_plot.png" width="500">
+
+### 2. QR метод
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from eigen_solver import qr_method
+
+matrix = np.array(...)
+
+# Нахождение всех собственных чисел матрицы
+eigenvalues =  qr_method(matrix)
+
+```
+
+### 3. Метод вращений Якоби
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from eigen_solver import jacobi_rotations_method
+
+# ВАЖНО! В данном методе матрица должна быть симметричной - в ином случае получаем исключение
+matrix = np.array(...)
+
+# Нахождение всех собственных чисел и векторов матрицы. Вектора есть столбцы в eigenvectors
+eigenvalues, eigenvectors =  jacobi_rotations_method(matrix)
+
+```
