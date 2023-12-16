@@ -8,16 +8,16 @@ def is_eigen_vector(matrix: np.ndarray,
     """
     Проверяет, является ли заданный вектор `v` собственным вектором для матрицы `matrix`.
 
-    Args:
-    - matrix (np.ndarray): Квадратная матрица, для которой проверяется собственный вектор.
-    - v (np.ndarray): Вектор, который проверяется на соответствие собственному вектору.
+    Аргументы:
+        - matrix (np.ndarray): Квадратная матрица, для которой проверяется собственный вектор.
+        - v (np.ndarray): Вектор, который проверяется на соответствие собственному вектору.
 
-    Returns:
-    - bool: True, если вектор `v` является собственным вектором для матрицы `matrix`, иначе False.
+    Возвращает:
+        - bool: True, если вектор `v` является собственным вектором для матрицы `matrix`, иначе False.
 
-    Raises:
-    - ValueError: Если размерности матрицы и вектора не совпадают или вектор является нулевым.
-    """
+    Исключения:
+        - ValueError: Если размерности матрицы и вектора не совпадают или вектор является нулевым.
+        """
     if matrix.shape[0] != matrix.shape[1]:
         raise ValueError("Матрица должна быть квадратной")
 
@@ -38,14 +38,14 @@ def is_eigen_value(matrix: np.ndarray,
     """
     Проверяет, является ли заданное значение `value` собственным значением для матрицы `matrix`.
 
-    Args:
+    Аргументы:
     - matrix (np.ndarray): Квадратная матрица, для которой проверяется собственное значение.
     - value (float): Значение, которое проверяется на соответствие собственному значению.
 
-    Returns:
+    Возвращает:
     - bool: True, если значение `value` является собственным значением для матрицы `matrix`, иначе False.
 
-    Raises:
+    Исключения:
     - ValueError: Если размерности матрицы не совпадают или собственное число подано нулевым.
     """
     if matrix.shape[0] != matrix.shape[1]:
@@ -59,18 +59,18 @@ def is_eigen_value(matrix: np.ndarray,
     return np.isclose(det, 0, atol=1e-5)
 
 
-def generate_matrix(eigenvalues: Union[list, np.ndarray], symmetric: bool=False) -> np.ndarray:
+def generate_matrix(eigenvalues: Union[list, np.ndarray], symmetric: bool = False) -> np.ndarray:
     """
     Генерирует квадратную матрицу с заданными собственными значениями.
 
-    Args:
+    Аргументы:
     - eigenvalues (Union[list, np.ndarray]): Список или массив собственных значений.
     - symmetric (bool = False): нужно ли генерировать матрицу симметричной
 
-    Returns:
+    Возвращает:
     - np.ndarray: Квадратная матрица, у которой заданы собственные значения.
 
-    Raises:
+    Исключения:
     - ValueError: Если вектор собственных значений пуст.
     """
     eigenvalues = np.array(eigenvalues).flatten()
