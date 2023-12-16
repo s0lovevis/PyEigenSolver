@@ -69,7 +69,7 @@ def qr_method(matrix: np.ndarray,
         plt.title('Зависимость модуля наибольшего поддиагонального элемента от номера итерации')
         plt.grid(True)
 
-        plt.savefig('convergence_plot.png')
+        plt.savefig('qr_method_plot.png')
         plt.close()
 
     return np.diagonal(A_k)
@@ -122,7 +122,7 @@ def power_iteration_method(matrix: np.ndarray,
         plt.title('Зависимость сходимости от итерации')
         plt.grid(True)
 
-        plt.savefig('convergence_plot.png')
+        plt.savefig('power_iter_plot.png')
         plt.close()
 
     return eigenvalue, vector
@@ -199,7 +199,7 @@ def jacobi_rotations_method(matrix: np.ndarray,
         plt.title('Зависимость модуля наибольшего внедиагонального элемента от номера итерации')
         plt.grid(True)
 
-        plt.savefig('convergence_plot.png')
+        plt.savefig('jacobi_rotations_plot.png')
         plt.close()
 
     eigenvalues = np.diag(matrix)
