@@ -53,9 +53,11 @@ def qr_method(matrix: np.ndarray,
     A_k = copy(matrix).astype(float)
     for i in range(num_iterations):
         Q, R = qr_decomposition(A_k)
+
+        convergence = np.linalg.norm(np.diagonal(A_k) - np.diagonal(R @ Q))
+
         A_k = R @ Q
 
-        convergence = np.abs(np.min(np.diag(A_k, k=-1)))
         convergence_history.append(convergence)
 
         if convergence < epsilon:
@@ -65,8 +67,8 @@ def qr_method(matrix: np.ndarray,
         plt.figure(figsize=(8, 6))
         plt.plot(range(len(convergence_history)), convergence_history, marker='o', linestyle='-', linewidth=3)
         plt.xlabel('Итерация')
-        plt.ylabel('Модуль наибольшего поддиагонального элемента')
-        plt.title('Зависимость модуля наибольшего поддиагонального элемента от номера итерации')
+        plt.ylabel('Норма разности векторов из диагональных элементов')
+        plt.title('Зависимость нормы разности векторов из диагональных элементов от номера итерации')
         plt.grid(True)
 
         plt.savefig('qr_method_plot.png')
@@ -236,7 +238,7 @@ def calc_det(matrix: np.ndarray) -> np.ndarray:
 
 def get_characteristic_polynomial(matrix: np.ndarray) -> np.ndarray:
     """
-    Возращает коэффициенты характеристического полинома матрицы
+    Возращает коэффиценты характеристического полинома матрицы
 
     Аргументы:
     - matrix (np.ndarray): Исходная квадратная матрица.
